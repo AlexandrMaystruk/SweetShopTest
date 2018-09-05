@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_small_size">16sp</dimen>
+    <dimen name="text_mid_size">20sp</dimen>
+    <dimen name="text_big_size">26sp</dimen>
+
+
+    <dimen name="h_picture">90dp</dimen>
+    <dimen name="w_picture">90dp</dimen>
+
+
+
+
+</resources>
