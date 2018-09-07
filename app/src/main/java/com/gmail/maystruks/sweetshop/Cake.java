@@ -2,7 +2,7 @@ package com.gmail.maystruks.sweetshop;
 
 import android.graphics.Bitmap;
 
-public class Cake implements ItemType {
+public class Cake{
 
     private String name;
     private String description;

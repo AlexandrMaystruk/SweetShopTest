@@ -6,7 +6,7 @@ import java.util.List;
 public interface IGetCakeList {
 
     interface View {
-        void onGetCakesSuccess(List<ItemType> cakes);
+        void onGetCakesSuccess(List<Cake> cakes);
         void onGetCakesFailure(String message);
         void showProgress();
         void hideProgress();
@@ -24,7 +24,7 @@ public interface IGetCakeList {
 
     interface OnGetCakesListener {
 
-        void onGetCakesSuccess(List<ItemType> cakesList);
+        void onGetCakesSuccess(List<Cake> cakesList);
         void onGetCakesFailure(String message);
     }
 

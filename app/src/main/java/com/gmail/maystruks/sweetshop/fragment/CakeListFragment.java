@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gmail.maystruks.sweetshop.Cake;
 import com.gmail.maystruks.sweetshop.IGetCakeList;
 import com.gmail.maystruks.sweetshop.ItemType;
 import com.gmail.maystruks.sweetshop.R;
@@ -60,7 +61,7 @@ public class CakeListFragment extends Fragment implements IGetCakeList.View, Swi
         presenter = new CakePresenter(this);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerCakeListAdapter(new ArrayList<ItemType>());
+        adapter = new RecyclerCakeListAdapter(new ArrayList<Cake>());
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -73,7 +74,7 @@ public class CakeListFragment extends Fragment implements IGetCakeList.View, Swi
     }
 
     @Override
-    public void onGetCakesSuccess(List<ItemType> cakes) {
+    public void onGetCakesSuccess(List<Cake> cakes) {
 
         adapter.updateList(cakes);
 
@@ -94,7 +95,6 @@ public class CakeListFragment extends Fragment implements IGetCakeList.View, Swi
 
     @Override
     public void showProgress() {
-
 
         swipeRefreshLayout.post(new Runnable() {
             @Override

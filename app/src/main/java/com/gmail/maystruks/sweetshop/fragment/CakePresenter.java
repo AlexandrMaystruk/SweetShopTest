@@ -2,6 +2,7 @@ package com.gmail.maystruks.sweetshop.fragment;
 
 import android.content.Context;
 
+import com.gmail.maystruks.sweetshop.Cake;
 import com.gmail.maystruks.sweetshop.IGetCakeList;
 import com.gmail.maystruks.sweetshop.ItemType;
 
@@ -21,7 +22,7 @@ public class CakePresenter implements IGetCakeList.Presenter, IGetCakeList.OnGet
     }
 
     @Override
-    public void onGetCakesSuccess(List<ItemType> cakesList) {
+    public void onGetCakesSuccess(List<Cake> cakesList) {
         view.onGetCakesSuccess(cakesList);
         view.hideProgress();
     }

@@ -1,5 +1,6 @@
 package com.gmail.maystruks.sweetshop.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gmail.maystruks.sweetshop.Cake;
-import com.gmail.maystruks.sweetshop.Commercial;
 import com.gmail.maystruks.sweetshop.DescriptionSingleton;
 import com.gmail.maystruks.sweetshop.ItemType;
 import com.gmail.maystruks.sweetshop.R;
@@ -17,17 +17,19 @@ import com.gmail.maystruks.sweetshop.fragment.CakeDescriptionFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class RecyclerCakeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<ItemType> cakesList;
+    private List<Cake> cakesList;
 
 
-    public RecyclerCakeListAdapter(List<ItemType> cakesList) {
+    public RecyclerCakeListAdapter(List<Cake> cakesList) {
 
-        this.cakesList = cakesList;
+        this.cakesList = new ArrayList<>();
+        this.cakesList.addAll(cakesList);
     }
 
 
@@ -51,29 +53,33 @@ public class RecyclerCakeListAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+
+
+        final int positionIndex = position - position / 3;
 
         if (holder instanceof CakeViewHolder) {
-            ((CakeViewHolder) holder).ivCakeImage.setImageBitmap(((Cake) cakesList.get(position)).getCakeImage());
-            ((CakeViewHolder) holder).tvTitle.setText(((Cake) cakesList.get(position)).getName());
-            ((CakeViewHolder) holder).tvDescription.setText(((Cake) cakesList.get(position)).getDescription());
+            ((CakeViewHolder) holder).ivCakeImage.setImageBitmap((cakesList.get(positionIndex)).getCakeImage());
+            ((CakeViewHolder) holder).tvTitle.setText((cakesList.get(positionIndex)).getName());
+            ((CakeViewHolder) holder).tvDescription.setText((cakesList.get(positionIndex)).getDescription());
             ((CakeViewHolder) holder).mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DescriptionSingleton.getINSTANCE().setCake((Cake) cakesList.get(position));
+
+                    DescriptionSingleton.getINSTANCE().setCake(cakesList.get(positionIndex));
                     EventBus.getDefault().post(new Event(CakeDescriptionFragment.ID_DESCRIPTION_FRAGMENT));
 
                 }
             });
         } else if (holder instanceof CommercialViewHolder) {
             ((CommercialViewHolder) holder).tvCommercial
-                    .setText(((Commercial) cakesList.get(position)).getTitle());
+                    .setText("The best cakes in the world!");
         }
 
     }
 
 
-    public void updateList(List<ItemType> newsList) {
+    public void updateList(List<Cake> newsList) {
         this.cakesList.clear();
         this.cakesList.addAll(newsList);
         notifyDataSetChanged();
@@ -83,20 +89,17 @@ public class RecyclerCakeListAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public int getItemViewType(int position) {
 
-        if (cakesList.get(position) instanceof Cake) {
-            return ItemType.CAKE_TYPE;
-        } else if (cakesList.get(position) instanceof Commercial) {
-            return ItemType.COMMERCIAL_TYPE;
-        } else {
-            return -1;
-        }
 
+        if (position % 3 == 0) {
+            return ItemType.COMMERCIAL_TYPE;
+        }
+        return ItemType.CAKE_TYPE;
     }
 
     @Override
     public int getItemCount() {
 
-        return cakesList.size();
+        return cakesList.size() + cakesList.size() / 3;
     }
 
 

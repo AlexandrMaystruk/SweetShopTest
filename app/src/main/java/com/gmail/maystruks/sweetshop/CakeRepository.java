@@ -71,21 +71,9 @@ public class CakeRepository {
     }
 
 
-    public ArrayList<ItemType> getCakesList() {
+    public ArrayList<Cake> getCakesList() {
 
         Collections.shuffle(cakesList, random);
-        ArrayList<ItemType> list = new ArrayList<>();
-        int count = 3;
-        for (int i = 0; i < cakesList.size(); i++) {
-            if (count > 0) {
-                list.add(cakesList.get(i));
-                count--;
-            } else {
-                list.add(new Commercial());
-                i--;
-                count = 3;
-            }
-        }
-        return list;
+        return cakesList;
     }
 }
